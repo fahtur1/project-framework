@@ -7,6 +7,7 @@ class Auth extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Buyer_model');
+        $this->load->helper('help');
     }
 
     public function index()
@@ -38,10 +39,11 @@ class Auth extends CI_Controller
     public function signup()
     {
         if ($this->input->post()) {
+            $date = $this->input->post('date');
             $data = [
                 'id_pembeli' => uniqid('usr'),
                 'nama_pembeli' => $this->input->post('name'),
-                'tanggal_lahir_pembeli' => $this->input->post('date'),
+                'tanggal_lahir_pembeli' => date_reverse($date),
                 'jenis_kelamin_pembeli' =>  $this->input->post('gender'),
                 'alamat_pembeli' => $this->input->post('address'),
                 'email_pembeli' => $this->input->post('email'),
