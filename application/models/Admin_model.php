@@ -17,6 +17,11 @@ class Admin_model extends CI_Model
         return $this->db->get_where('admin', ['id_admin' => $id])->row_array();
     }
 
+    public function getAdminByEmail($email)
+    {
+        return $this->db->get_where('admin', ['email_admin' => $email])->row_array();
+    }
+
     public function createAdmin($data)
     {
         return $this->db->insert('admin', $data);

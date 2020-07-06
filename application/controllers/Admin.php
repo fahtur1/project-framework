@@ -17,26 +17,28 @@ class Admin extends CI_Controller
     public function index()
     {
         $data = [
+            'admin' => $this->Admin_model->getAdminById($this->session->userdata('id_admin')),
             'userCount' => $this->Buyer_model->getUserRow(),
             'adminCount' => $this->Admin_model->getAdminRow(),
             'sellerCount' => $this->Seller_model->getSellerRow(),
             'productCount' => $this->Product_model->getProductRow(),
         ];
-        $this->load->view('admin/header');
+        $this->load->view('admin/header', $data);
         $this->load->view('admin/home', $data);
         $this->load->view('admin/footer');
     }
 
     public function create($url)
     {
-        $this->load->view('admin/header');
+        $data['admin'] = $this->Admin_model->getAdminById($this->session->userdata('id_admin'));
+        $this->load->view('admin/header', $data);
         switch ($url) {
             case 'admin':
                 if ($this->input->post()) {
                     $data = [
                         'id_admin' => uniqid('adm'),
                         'nama_admin' => $this->input->post('nama'),
-                        'username' => $this->input->post('username'),
+                        'email_admin' => $this->input->post('email'),
                         'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT)
                     ];
                     if ($this->load->Admin_model->createAdmin($data) > 0) {
@@ -131,30 +133,23 @@ class Admin extends CI_Controller
 
     public function read($url = 'admin')
     {
-        $this->load->view('admin/header');
+        $data['admin'] = $this->Admin_model->getAdminById($this->session->userdata('id_admin'));
+        $this->load->view('admin/header', $data);
         switch ($url) {
             case 'admin':
-                $data = [
-                    'admins' => $this->Admin_model->getAdmins()
-                ];
+                $data['admins'] = $this->Admin_model->getAdmins();
                 $this->load->view('admin/table/admin', $data);
                 break;
             case 'pembeli':
-                $data = [
-                    'buyers' => $this->Buyer_model->getUsers()
-                ];
+                $data['buyers'] = $this->Buyer_model->getUsers();
                 $this->load->view('admin/table/pembeli', $data);
                 break;
             case 'penjual':
-                $data = [
-                    'sellers' => $this->Seller_model->getSellers()
-                ];
+                $data['sellers'] = $this->Seller_model->getSellers();
                 $this->load->view('admin/table/penjual', $data);
                 break;
             case 'barang':
-                $data = [
-                    'products' => $this->Product_model->getProducts()
-                ];
+                $data['products'] = $this->Product_model->getProducts();
                 $this->load->view('admin/table/barang', $data);
                 break;
         }
@@ -163,16 +158,16 @@ class Admin extends CI_Controller
 
     public function update($url, $id)
     {
-        $this->load->view('admin/header');
+        $data['admin'] = $this->Admin_model->getAdminById($this->session->userdata('id_admin'));
+        $this->load->view('admin/header', $data);
         switch ($url) {
             case 'admin':
                 $data['admin'] = $this->Admin_model->getAdminById($id);
-
                 if ($this->input->post()) {
                     $adminData = [
                         'id_admin' => $id,
                         'nama_admin' => $this->input->post('nama'),
-                        'username' => $this->input->post('username'),
+                        'email_admin' => $this->input->post('email'),
                         'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT)
                     ];
                     if ($this->Admin_model->updateAdmin($adminData) > 0) {
@@ -186,7 +181,6 @@ class Admin extends CI_Controller
                 break;
             case 'penjual':
                 $data['seller'] = $this->Seller_model->getSellerById($id);
-
                 if ($this->input->post()) {
                     $sellerData = [
                         'id_penjual' => $id,
@@ -209,7 +203,6 @@ class Admin extends CI_Controller
                 break;
             case 'pembeli':
                 $data['buyer'] = $this->Buyer_model->getUserById($id);
-
                 if ($this->input->post()) {
                     $buyerData = [
                         'id_pembeli' => $id,

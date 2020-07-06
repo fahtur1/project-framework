@@ -4,7 +4,7 @@
         <div class="signup-content">
             <div class="signup-form">
                 <h2 class="form-title">Sign up</h2>
-                <form method="POST" action="<?= base_url('auth/signup') ?>" class="register-form" id="register-form">
+                <form method="POST" action="<?= base_url('auth/signup_admin') ?>" class="register-form" id="register-form">
                     <div class="form-group">
                         <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                         <input type="text" name="name" id="name" placeholder="Your Name" />
@@ -17,8 +17,8 @@
                         <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                         <select class="form-control" name="gender">
                             <option hidden>Gender</option>
-                            <option value="laki-laki">Male</option>
-                            <option value="perempuan">Female</option>
+                            <option value="Laki-Laki">Male</option>
+                            <option value="Perempuan">Female</option>
                         </select>
                     </div>
                     <div class="form-group">

@@ -16,7 +16,10 @@
                     <tr>
                         <th>No</th>
                         <th>Nama</th>
-                        <th>Username</th>
+                        <th>Tanggal Lahir</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Alamat</th>
+                        <th>Email</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -24,7 +27,10 @@
                     <tr>
                         <th>No</th>
                         <th>Nama</th>
-                        <th>Username</th>
+                        <th>Tanggal Lahir</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Alamat</th>
+                        <th>Email</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>
@@ -33,10 +39,13 @@
                     $no = 1;
                     foreach ($admins as $admin) : ?>
                         <tr>
-                            <th><?= $no ?></th>
-                            <th><?= $admin['nama_admin'] ?></th>
-                            <th><?= $admin['username'] ?></th>
-                            <th class="text-center">
+                            <td><?= $no ?></td>
+                            <td><?= $admin['nama_admin'] ?></td>
+                            <td><?= $admin['tanggal_lahir_admin'] ?></td>
+                            <td><?= $admin['jenis_kelamin_admin'] ?></td>
+                            <td><?= $admin['alamat_admin'] ?></td>
+                            <td><?= $admin['email_admin'] ?></td>
+                            <td class="text-center">
                                 <a href="<?= base_url('admin/update/admin/') . $admin['id_admin'] ?> " class="btn btn-success">
                                     <span class="text">
                                         <i class="fas fa-pencil-alt"></i>
@@ -48,7 +57,7 @@
                                         <i class="fas fa-trash-alt"></i>
                                     </span>
                                 </a>
-                            </th>
+                            </td>
                         </tr>
                     <?php
                         $no++;
