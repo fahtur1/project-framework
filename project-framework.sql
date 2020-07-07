@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 04, 2020 at 08:24 AM
+-- Generation Time: Jul 07, 2020 at 03:46 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -29,9 +29,12 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin` (
-  `id_admin` varchar(64) NOT NULL,
+  `id_admin` varchar(32) NOT NULL,
   `nama_admin` varchar(64) NOT NULL,
-  `username` varchar(64) NOT NULL,
+  `tanggal_lahir_admin` varchar(16) NOT NULL,
+  `jenis_kelamin_admin` varchar(16) NOT NULL,
+  `alamat_admin` varchar(64) NOT NULL,
+  `email_admin` varchar(64) NOT NULL,
   `password` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -39,8 +42,9 @@ CREATE TABLE `admin` (
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`id_admin`, `nama_admin`, `username`, `password`) VALUES
-('adm5eff8c8b85803', 'Riwalsyam Ritonga', 'riwal', '$2y$10$WmkBye.yIn00WkPKzUzg4uRUG/QMr2giMW3XwDAO97ejjT6PxnklC');
+INSERT INTO `admin` (`id_admin`, `nama_admin`, `tanggal_lahir_admin`, `jenis_kelamin_admin`, `alamat_admin`, `email_admin`, `password`) VALUES
+('adm5f00259a5d0d5', 'Riwalsyam Ritonga', '16-02-2000', 'Laki-Laki', 'Jalan Terubuk dekat jalan cucut', 'riwalsyam.r18ti@mahasiswa.pcr.ac.id', '$2y$10$Ye/C8aVADE.z.doxWwWgtucP8cQQpFrLjUpqyOEsyJ/duIbraGdE6'),
+('admform5f0031f0c029d', 'Fahturrahman Fauzi', '04-07-2020', 'Laki-Laki', 'Jalan Kakap Nomor 36A', 'fahturrahman18ti@mahasiswa.pcr.ac.id', '$2y$10$JhsfkwdHcmr4.aeeHJ.xBe6gHRerwAvGQX1258BLtvAGqJzH4Qpp2');
 
 -- --------------------------------------------------------
 
@@ -60,7 +64,8 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`id_barang`, `nama_barang`, `deskripsi_barang`, `gambar_barang`) VALUES
-('brg5f001b5e9f5bc', 'Pisang ku belum masak', 'sang pisang enak rasanya', 'barang-1593843733.jpg');
+('brg5f001b5e9f5bc', 'Pisang ku belum masak', 'sang pisang enak rasanya', 'barang-1593843733.jpg'),
+('brg5f0033fc8cab5', 'Keyboard', 'ini adalah keyboard baru riwal', 'barang-1593848828.jpg');
 
 -- --------------------------------------------------------
 
@@ -97,7 +102,15 @@ CREATE TABLE `pembeli` (
 
 INSERT INTO `pembeli` (`id_pembeli`, `nama_pembeli`, `tanggal_lahir_pembeli`, `jenis_kelamin_pembeli`, `alamat_pembeli`, `email_pembeli`, `password`) VALUES
 ('usr5eff9b3fcc4e2', 'Fahturrahman Fauziiiiii', '04-07-2020', 'Laki-Laki', 'Jalan Kakap Nomor 36A', 'fahturrahman18ti@mahasiswa.pcr.ac.id', '$2y$10$50G9VMZZbrO9pgGuqmV4heRU.T48pFxlbo/0h3.u7A8OSRhV6sHv6'),
-('usr5effa4ab95470', 'Riwalsyam Ritonga', '16-02-2000', 'Laki-Laki', 'Jalan Terubuk dekat jalan cucut', 'riwalsyam.r18ti@mahasiswa.pcr.ac.id', '$2y$10$IBDiQtT/98X/DdUPkn1fGOrr82mSCaF317sCC5Gu36ghjs.BnBiHq');
+('usr5effa4ab95470', 'Riwalsyam Ritonga', '16-02-2000', 'Laki-Laki', 'Jalan Terubuk dekat jalan cucut', 'riwalsyam.r18ti@mahasiswa.pcr.ac.id', '$2y$10$IBDiQtT/98X/DdUPkn1fGOrr82mSCaF317sCC5Gu36ghjs.BnBiHq'),
+('usr5f00c69171412', 'Ardy Junata', '05-07-2020', 'Laki-Laki', 'Tembilahan', 'ardy18ti@mahasiswa.pcr.ac.id', '$2y$10$8cznwN4jvVBfm8NcwopZIeUhdDOX7rdxJFaib3.TAo8ck3/6ceUiy'),
+('usr5f00c6bbd3aaf', 'Jody Alief', '05-07-2020', 'Laki-Laki', 'Jalan Sekolah', 'jody18ti@Mahasiswa.pcr.ac.id', '$2y$10$3ofHr4GrCCiQeOfrog/uVuMLYJLwrUrjXkKhtpL5vYUKaEYTQ25g.'),
+('usr5f00c6f901a27', 'Widya', '05-07-2020', 'Laki-Laki', 'Jalan Parit Indah', 'widya18ti@mahasiswa.pcr.ac.id', '$2y$10$VCBRu6QNm4/S7eN821.ZfeyvNNnNKTzGV4BqK93U9DS3./Jy692Ey'),
+('usr5f00c71a3d026', 'Wina', '05-07-2020', 'Laki-Laki', 'Kulim', 'wina18ti@mahasiswa.pcr.ac.id', '$2y$10$/R/B18HA2V/fjq8dRk3aVeRsw.9ohYMYXJQKGgrJ1R53ODuOihwLW'),
+('usr5f00c748e1156', 'Haqi', '05-07-2020', 'Laki-Laki', 'Panam', 'ahmad18ti@mahasiswa.pcr.ac.id', '$2y$10$8Jh7gySsiHSEm6haEVJcKeNmQx3XQP.BKiQWMlgAd0/lvH.o6pFde'),
+('usr5f00c76b5324a', 'Bobby', '05-07-2020', 'Laki-Laki', 'Rumbai', 'boby18ti@mahasiswa.pcr.ac.id', '$2y$10$Jvr.NAwnk3/L1RodgyNBNe8qP2E4BUxZCt19vaMap2WfwExJ9SHx6'),
+('usr5f00c78bb08a8', 'Windi', '05-07-2020', 'Perempuan', 'Jalan Rumbai Selatan', 'windi18ti@mahasiswa.pcr.ac.id', '$2y$10$KuP0d/S4v8zdvl5KwkkeTuBcngyvog.mZTp6YMOjLs4IozF3cL9am'),
+('usr5f00c7ae0bf12', 'Irwan', '05-07-2020', 'Laki-Laki', 'Taluk Kuantan', 'irwan18ti@mahasiswa.pcr.ac.id', '$2y$10$kcXLpL6WxGFSr2pNtsHcQeLVBlBA.4dGE9g46VsnyIW4BtiAEoQ0q');
 
 -- --------------------------------------------------------
 
