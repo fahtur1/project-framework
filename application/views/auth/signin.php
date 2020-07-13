@@ -6,7 +6,6 @@
                 <figure><img src="<?= base_url('assets') ?>/img/signin-image.jpg" alt="sing up image"></figure>
                 <a href="<?= base_url('auth/signup') ?>" class="signup-image-link">Create an account</a>
             </div>
-
             <div class="signin-form">
                 <h2 class="form-title">Sign In</h2>
                 <form action="<?= base_url('auth') ?>" method="POST" class="register-form" id="login-form">

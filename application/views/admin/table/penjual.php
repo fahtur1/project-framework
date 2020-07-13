@@ -6,7 +6,7 @@
 </a>
 <!-- Page Heading -->
 <h1 class="h3 mb-2 text-gray-800">Data Penjual</h1>
-
+<?= $this->session->flashdata('message'); ?>
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-body">
@@ -53,7 +53,7 @@
                                     </span>
                                 </a>
                                 |
-                                <a href="<?= base_url('admin/delete/penjual/') . $seller['id_penjual'] ?> " class="btn btn-danger">
+                                <a href="<?= base_url('admin/delete/penjual/') . $seller['id_penjual'] ?> " class="btn btn-danger" onclick="return confirm('Anda yakin ingin menghapus data ?')">
                                     <span class="text">
                                         <i class="fas fa-trash-alt"></i>
                                     </span>

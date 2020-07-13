@@ -62,7 +62,8 @@ class Auth extends CI_Controller
     public function logout()
     {
         $this->session->unset_userdata('id_pembeli');
-        redirect('home');
+
+        redirect('auth/signin_admin');
     }
 
     public function signin_admin()

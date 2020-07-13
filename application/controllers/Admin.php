@@ -34,24 +34,36 @@ class Admin extends CI_Controller
         $this->load->view('admin/header', $data);
         switch ($url) {
             case 'admin':
-                if ($this->input->post()) {
+                $this->form_validation->set_rules('name', 'Nama', 'required');
+                $this->form_validation->set_rules('email', 'Email', 'required|is_unique[admin.email_admin]');
+                $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
+
+                if ($this->form_validation->run()) {
                     $data = [
                         'id_admin' => uniqid('adm'),
-                        'nama_admin' => $this->input->post('nama'),
+                        'nama_admin' => $this->input->post('name'),
+                        'tanggal_lahir_admin' => date_reverse($this->input->post('date')),
+                        'alamat_admin' => $this->input->post('address'),
+                        'jenis_kelamin_admin' => $this->input->post('gender'),
                         'email_admin' => $this->input->post('email'),
                         'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT)
                     ];
                     if ($this->load->Admin_model->createAdmin($data) > 0) {
-                        redirect('admin/read');
+                        $this->session->set_flashdata('message', $this->flask('success', 'Data berhasil ditambahkan!'));
                     } else {
-                        echo "Gagal Untuk Mendaftar!";
+                        $this->session->set_flashdata('message', $this->flask('danger', 'Data gagal ditambahkan'));
                     }
+                    redirect('admin/read');
                 } else {
                     $this->load->view('admin/form/admin');
                 }
                 break;
             case 'pembeli':
-                if ($this->input->post()) {
+                $this->form_validation->set_rules('name', 'Nama', 'required');
+                $this->form_validation->set_rules('email', 'Email', 'required|is_unique[pembeli.email_pembeli]');
+                $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
+
+                if ($this->form_validation->run()) {
                     $data = [
                         'id_pembeli' => uniqid('usr'),
                         'nama_pembeli' => $this->input->post('name'),
@@ -63,16 +75,21 @@ class Admin extends CI_Controller
                     ];
 
                     if ($this->Buyer_model->createUser($data) > 0) {
-                        redirect('admin/read/pembeli');
+                        $this->session->set_flashdata('message', $this->flask('success', 'Data berhasil ditambahkan!'));
                     } else {
-                        echo 'Gagal Mendaftar User';
+                        $this->session->set_flashdata('message', $this->flask('success', 'Data gagal ditambahkan'));
                     }
+                    redirect('admin/read/pembeli');
                 } else {
                     $this->load->view('admin/form/pembeli');
                 }
                 break;
             case 'penjual':
-                if ($this->input->post()) {
+                $this->form_validation->set_rules('name', 'Nama', 'required');
+                $this->form_validation->set_rules('email', 'Email', 'required|is_unique[penjual.email_penjual]');
+                $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
+
+                if ($this->form_validation->run()) {
                     $data = [
                         'id_penjual' => uniqid('sellr'),
                         'nama_penjual' => $this->input->post('name'),
@@ -80,14 +97,15 @@ class Admin extends CI_Controller
                         'jenis_kelamin_penjual' =>  $this->input->post('gender'),
                         'alamat_penjual' => $this->input->post('address'),
                         'email_penjual' => $this->input->post('email'),
-                        'password' => password_hash($this->input->post('pass'), PASSWORD_DEFAULT)
+                        'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT)
                     ];
 
                     if ($this->Seller_model->createSeller($data) > 0) {
-                        redirect('admin/read/penjual');
+                        $this->session->set_flashdata('message', $this->flask('success', 'Data berhasil ditambahkan!'));
                     } else {
-                        echo 'Gagal Mendaftar Seller';
+                        $this->session->set_flashdata('message', $this->flask('success', 'Data gagal ditambahkan'));
                     }
+                    redirect('admin/read/penjual');
                 } else {
                     $this->load->view('admin/form/penjual');
                 }
@@ -115,10 +133,11 @@ class Admin extends CI_Controller
                             $data['gambar_barang'] = $new_image;
 
                             if ($this->Product_model->createProduct($data) > 0) {
-                                redirect('admin/read/barang');
+                                $this->session->set_flashdata('message', $this->flask('success', 'Data berhasil ditambahkan!'));
                             } else {
-                                echo 'Gagal menambahkan data';
+                                $this->session->set_flashdata('message', $this->flask('success', 'Data gagal ditambahkan'));
                             }
+                            redirect('admin/read/barang');
                         } else {
                             $this->upload->display_errors();
                         }
@@ -258,7 +277,6 @@ class Admin extends CI_Controller
                     } else {
                         $productData['gambar_barang'] = $data['product']['gambar_barang'];
                         if ($this->Product_model->updateProduct($productData) > 0) {
-                            unlink(FCPATH . "assets/img/barang/" . $data['product']['gambar_barang']);
                             redirect('admin/read/barang');
                         } else {
                             echo 'Gagal Mengupdate data';
@@ -307,4 +325,15 @@ class Admin extends CI_Controller
                 break;
         }
     }
+
+    public function flask($class, $message)
+    {
+        return
+            '<div class="alert alert-' . $class . ' alert-dismissible fade show" role="alert">
+                ' . $message . '
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>';
+    } 
 }
